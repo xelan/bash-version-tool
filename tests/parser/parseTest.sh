@@ -55,6 +55,16 @@ source ./parser/parse.sh
     [ "${lines[4]}" = "Build: " ]
 }
 
+@test "Version MAJOR" {
+    run andaris_version_parse 3 ALL
+    [ "$status" -eq 0 ]
+    [ "${lines[0]}" = "Major: 3" ]
+    [ "${lines[1]}" = "Minor: 0" ]
+    [ "${lines[2]}" = "Patch: 0" ]
+    [ "${lines[3]}" = "Extra: " ]
+    [ "${lines[4]}" = "Build: " ]
+}
+
 @test "Version MAJOR.MINOR-EXTRA" {
     run andaris_version_parse 1.2-alpha-1 ALL
     [ "$status" -eq 0 ]

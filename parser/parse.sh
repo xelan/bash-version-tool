@@ -8,23 +8,31 @@ function andaris_version_parse() {
     VERSION=$1;
     PART=$2;
 
-    if [[ "$VERSION" =~ ^[vV]?([0-9]+)\.([0-9]+)(\.([0-9]+))?(\-([[a-zA-Z0-9\.-]+))?(\+([[a-zA-Z0-9\.-]+))?$ ]]; then 
+    if [[ "$VERSION" =~ ^[vV]?([0-9]+)(\.([0-9]+))?(\.([0-9]+))?(\-([[a-zA-Z0-9\.-]+))?(\+([[a-zA-Z0-9\.-]+))?$ ]]; then 
         MAJOR=${BASH_REMATCH[1]}; 
-        MINOR=${BASH_REMATCH[2]};
-        if [ -z ${BASH_REMATCH[4]} ]; then
+
+        if [ -z ${BASH_REMATCH[3]} ]; then
+            MINOR='0';
+        else
+            MINOR=${BASH_REMATCH[3]};
+        fi;
+
+        if [ -z ${BASH_REMATCH[5]} ]; then
             PATCH='0';
         else
-            PATCH=${BASH_REMATCH[4]};
+            PATCH=${BASH_REMATCH[5]};
         fi;
-        if [ -z ${BASH_REMATCH[6]} ]; then
+
+        if [ -z ${BASH_REMATCH[7]} ]; then
             EXTRA='';
         else
-            EXTRA=${BASH_REMATCH[6]}
+            EXTRA=${BASH_REMATCH[7]}
         fi;
-        if [ -z ${BASH_REMATCH[8]} ]; then
+
+        if [ -z ${BASH_REMATCH[9]} ]; then
             BUILD='';
         else
-            BUILD=${BASH_REMATCH[8]}
+            BUILD=${BASH_REMATCH[9]}
         fi;
     else 
       (>&2 echo 'Invalid version!');
