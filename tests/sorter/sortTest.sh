@@ -39,3 +39,12 @@ source ./sorter/sort.sh
     [ "${lines[4]}" = "1.0.1" ]
     [ "${lines[5]}" = "0.9" ]
 }
+
+@test "Invalid versions are discarded in the output" {
+    run andaris_version_sort '1.0.1\n0.9\ninvalid\nunexpected\n1.3' ASC
+
+    [ "$status" -eq 0 ]
+    [ "${lines[0]}" = "0.9" ]
+    [ "${lines[1]}" = "1.0.1" ]
+    [ "${lines[2]}" = "1.3" ]
+}

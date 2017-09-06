@@ -6,6 +6,7 @@
 # - bash 4
 
 source $(dirname ${BASH_SOURCE[0]})/../comparator/compare.sh
+source $(dirname ${BASH_SOURCE[0]})/../parser/parse.sh
 
 function andaris_version_sort() {
     VERSIONS_RAW="$1";
@@ -22,6 +23,11 @@ function andaris_version_sort() {
     VERSIONS=();
     I=0;
     for VERSION in $(echo -e $VERSIONS_RAW); do
+        andaris_version_parse $VERSION ALL > /dev/null 2>&1
+        if [ $? -eq 65 ]; then
+            continue;
+        fi;
+        
         VERSIONS[I]=$VERSION;
         ((I++));
     done;

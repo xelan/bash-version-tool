@@ -12,6 +12,7 @@ cat <<EOT
 Usage: versionsort.sh <versions> [order]
 
 <versions> newline-delimited versions to sort.
+Invalid versions are discarded in the output.
 
 [order] sort order (ASC or DESC), default ASC.
 EOT
