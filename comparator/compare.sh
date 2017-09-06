@@ -21,20 +21,20 @@ function andaris_version_compare() {
     if [ $? -ne 0 ]; then
         (>&2 echo 'Invalid version A!');
 
-        exit 65;
+        return 65;
     fi;
 
     B_MAJOR=$(andaris_version_parse $2 MAJOR 2>&1);
     if [ $? -ne 0 ]; then
         (>&2 echo 'Invalid version B!');
 
-        exit 65;
+        return 65;
     fi;
 
     if [ "$VERSION_A" == "$VERSION_B" ]; then
         echo "$RESULT_SAME";
 
-        exit 0;
+        return 0;
     fi;
 
     A_MINOR=$(andaris_version_parse $1 MINOR 2>&1);
@@ -49,31 +49,31 @@ function andaris_version_compare() {
     if [ $A_MAJOR -gt $B_MAJOR ]; then
         echo "$RESULT_A_HIGHER";
 
-        exit 0;
+        return 0;
     elif [ $B_MAJOR -gt $A_MAJOR ]; then
         echo "$RESULT_B_HIGHER";
 
-        exit 0;
+        return 0;
     fi;
 
     if [ $A_MINOR -gt $B_MINOR ]; then
         echo "$RESULT_A_HIGHER";
 
-        exit 0;
+        return 0;
     elif [ $B_MINOR -gt $A_MINOR ]; then
         echo "$RESULT_B_HIGHER";
 
-        exit 0;
+        return 0;
     fi;
 
     if [ $A_PATCH -gt $B_PATCH ]; then
         echo "$RESULT_A_HIGHER";
 
-        exit 0;
+        return 0;
     elif [ $B_PATCH -gt $A_PATCH ]; then
         echo "$RESULT_B_HIGHER";
 
-        exit 0;
+        return 0;
     fi;
 
     # If one version has an EXTRA version (prerelease) and one does not,
@@ -81,11 +81,11 @@ function andaris_version_compare() {
     if [ -z "$A_EXTRA" ] && [ ! -z "$B_EXTRA" ]; then
         echo "$RESULT_A_HIGHER";
 
-        exit 0;
+        return 0;
     elif [ -z "$B_EXTRA" ] && [ ! -z "$A_EXTRA" ]; then
         echo "$RESULT_B_HIGHER";
 
-        exit 0;
+        return 0;
     fi;
 
     # EXTRA version is a string, compare lexically in ASCII sort order
@@ -93,16 +93,16 @@ function andaris_version_compare() {
     if [[ "$A_EXTRA" > "$B_EXTRA" ]]; then
         echo "$RESULT_A_HIGHER";
 
-        exit 0;
+        return 0;
     elif [[ "$B_EXTRA" > "$A_EXTRA" ]]; then
         echo "$RESULT_B_HIGHER";
 
-        exit 0;
+        return 0;
     fi;
 
     # If no differences were found until here, the versions
     # are considered equal.
     echo "$RESULT_EQUAL";
 
-    exit 0;
+    return 0;
 }

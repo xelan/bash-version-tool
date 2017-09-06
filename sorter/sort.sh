@@ -14,7 +14,7 @@ function andaris_version_sort() {
     if [ "$ORDER" != "ASC" ] && [ "$ORDER" != "DESC" ]; then
         (>&2 echo 'Invalid order!');
 
-        exit 65;
+        return 65;
     fi;
 
     TEMP='';
@@ -57,7 +57,7 @@ function andaris_version_sort() {
     if [ "$ORDER" == "ASC" ]; then
         printf '%s\n' "${VERSIONS[@]}";
 
-        exit 0;
+        return 0;
     fi;
 
     # Descending order.
@@ -65,5 +65,5 @@ function andaris_version_sort() {
         echo "${VERSIONS[$I]}"
     done;
 
-    exit 0;
+    return 0;
 }

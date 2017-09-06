@@ -37,7 +37,7 @@ function andaris_version_parse() {
     else 
       (>&2 echo 'Invalid version!');
 
-      exit 65;
+      return 65;
     fi
 
     case "$PART" in
@@ -48,37 +48,37 @@ function andaris_version_parse() {
             echo "Extra: $EXTRA";
             echo "Build: $BUILD";
 
-            exit 0;
+            return 0;
             ;;
         'MAJOR')
             echo "$MAJOR";
 
-            exit 0;
+            return 0;
             ;;
         'MINOR')
             echo "$MINOR";
 
-            exit 0;
+            return 0;
             ;;
         'PATCH')
             echo "$PATCH";
 
-            exit 0;
+            return 0;
             ;;
         'EXTRA')
             echo "$EXTRA";
 
-            exit 0;
+            return 0;
             ;;
         'BUILD')
             echo "$BUILD";
 
-            exit 0;
+            return 0;
             ;;
         *)
             (>&2 echo 'Invalid part!');
 
-            exit 65;
+            return 65;
             ;;
     esac
 }
