@@ -3,16 +3,18 @@
 # see http://semver.org/
 # Requirements:
 # - bash 4
+# - cat
 
 source $(dirname ${BASH_SOURCE[0]})/parser/parse.sh
 
 if [ -z "$1" ] || [ -z "$2" ]; then
-    echo 'Usage: version.sh <version> <part>';
-    echo '';
-    echo '<version> is the version number to parse.';
-    echo '';
-    echo '<part> is the version part which should be returned.';
-    echo 'It can be MAJOR, MINOR, PATCH, EXTRA, BUILD or ALL.';
+cat <<EOT
+Usage: version.sh <version> <part>
+<version> is the version number to parse.
+
+<part> is the version part which should be returned.
+It can be MAJOR, MINOR, PATCH, EXTRA, BUILD or ALL.
+EOT
 
     exit 64;
 fi;

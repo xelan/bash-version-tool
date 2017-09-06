@@ -3,15 +3,18 @@
 #
 # Requirements:
 # - bash 4
+# - cat
 
 source $(dirname ${BASH_SOURCE[0]})/sorter/sort.sh
 
 if [ -z "$1" ]; then
-    echo 'Usage: versionsort.sh <versions> [order]';
-    echo '';
-    echo '<versions> newline-delimited versions to sort';
-    echo '';
-    echo '[order] sort order (ASC or DESC, default ASC)';
+cat <<EOT
+Usage: versionsort.sh <versions> [order]
+
+<versions> newline-delimited versions to sort.
+
+[order] sort order (ASC or DESC), default ASC.
+EOT
 
     exit 64;
 fi;
