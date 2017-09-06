@@ -103,5 +103,6 @@ function andaris_version_compare() {
     # If no differences were found until here, the versions
     # are considered equal.
     echo "$RESULT_EQUAL";
+
     exit 0;
 }

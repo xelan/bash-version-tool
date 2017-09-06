@@ -6,7 +6,7 @@
 
 source $(dirname ${BASH_SOURCE[0]})/parser/parse.sh
 
-if [ -z $1 ] || [ -z $2 ]; then
+if [ -z "$1" ] || [ -z "$2" ]; then
     echo 'Usage: version.sh <version> <part>';
     echo '';
     echo '<version> is the version number to parse.';
