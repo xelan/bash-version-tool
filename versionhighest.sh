@@ -21,8 +21,8 @@ Usage: versionhighest.sh <versions> [version]
 Output:
 If only a version list is specified, the highest version of that list is output.
 
-If a specific version is specified as well, YES is output if it is the same as or 
-higher than the highest version in the list, NO otherwise.
+If a specific version is specified as well, YES is output if it is the same as 
+or higher than the highest version in the list, NO otherwise.
 EOT
 
     exit 64;
