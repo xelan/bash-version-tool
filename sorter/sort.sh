@@ -27,37 +27,30 @@ function andaris_version_sort() {
         if [ $? -eq 65 ]; then
             continue;
         fi;
-        
+
         VERSIONS[I]=$VERSION;
         ((I++));
     done;
     LENGTH=$I;
 
-    # BubbleSort with andaris_version_compare as custom compare function.
-    while [ true ]; do
-        CHANGES=0;
+    # Insertion sort with andaris_version_compare as custom compare function.
+    # see https://en.wikipedia.org/wiki/Insertion_sort#Algorithm_for_insertion_sort
+    I=1;
+    while [ $I -lt $LENGTH ]; do
+        X=${VERSIONS[$I]};
+        J=$((I-1));
 
-        for (( I=0; I<=$LENGTH; I++ )); do
-            if [ -z "${VERSIONS[$I+1]}" ]; then
+        while [ $J -ge 0 ] && [ ! -z "$X" ]; do
+            COMPARE_RESULT=$(andaris_version_compare ${VERSIONS[$J]} $X 2>&1);
+            if [ "$COMPARE_RESULT" == "A" ]; then
+                VERSIONS[$J+1]=${VERSIONS[$J]};
+                ((J--));
+            else
                 break;
             fi;
-
-            # Compare the current item version with the next item version.
-            COMPARE_RESULT=$(andaris_version_compare ${VERSIONS[$I]} ${VERSIONS[$I+1]} 2>&1);
-
-            # If the current item version is higher, swap the two.
-            if [ "$COMPARE_RESULT" == "A" ]; then
-                TEMP=${VERSIONS[$I+1]};
-                VERSIONS[$I+1]=${VERSIONS[$I]};
-                VERSIONS[$I]=$TEMP;
-                CHANGES=1;
-            fi
         done;
-
-        # No changes were done in the current for look => break.
-        if [ $CHANGES -eq 0 ]; then
-            break;
-        fi;
+        VERSIONS[$J+1]=$X;
+        ((I++))
     done;
 
     if [ "$ORDER" == "ASC" ]; then
