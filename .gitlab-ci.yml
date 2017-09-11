@@ -1,0 +1,11 @@
+stages:
+  - test
+
+test:
+  stage: test
+  image: $CI_REGISTRY/docker/alpine36:latest
+  script:
+    - apk add bats
+    - bash tests/run.sh
+  tags:
+    - docker-std
