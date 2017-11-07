@@ -4,7 +4,7 @@
 # - bash 4
 # - cat
 
-source $(dirname ${BASH_SOURCE[0]})/comparator/compare.sh
+source "$(dirname "${BASH_SOURCE[0]}")"/comparator/compare.sh
 
 if [ -z "$1" ] || [ -z "$2" ]; then
 cat <<EOT
@@ -17,7 +17,7 @@ EOT
     exit 64;
 fi;
 
-RESULT=$(andaris_version_compare $1 $2 2>&1);
+RESULT=$(andaris_version_compare "$1" "$2" 2>&1);
 RESULTCODE=$?;
 
 echo "$RESULT";

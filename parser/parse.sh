@@ -11,25 +11,25 @@ function andaris_version_parse() {
     if [[ "$VERSION" =~ ^[vV]?([0-9]+)(\.([0-9]+))?(\.([0-9]+))?(\-([[a-zA-Z0-9\.-]+))?(\+([[a-zA-Z0-9\.-]+))?$ ]]; then 
         MAJOR=${BASH_REMATCH[1]}; 
 
-        if [ -z ${BASH_REMATCH[3]} ]; then
+        if [ -z "${BASH_REMATCH[3]}" ]; then
             MINOR='0';
         else
             MINOR=${BASH_REMATCH[3]};
         fi;
 
-        if [ -z ${BASH_REMATCH[5]} ]; then
+        if [ -z "${BASH_REMATCH[5]}" ]; then
             PATCH='0';
         else
             PATCH=${BASH_REMATCH[5]};
         fi;
 
-        if [ -z ${BASH_REMATCH[7]} ]; then
+        if [ -z "${BASH_REMATCH[7]}" ]; then
             EXTRA='';
         else
             EXTRA=${BASH_REMATCH[7]}
         fi;
 
-        if [ -z ${BASH_REMATCH[9]} ]; then
+        if [ -z "${BASH_REMATCH[9]}" ]; then
             BUILD='';
         else
             BUILD=${BASH_REMATCH[9]}

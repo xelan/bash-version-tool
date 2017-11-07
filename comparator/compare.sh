@@ -6,7 +6,7 @@
 # Requirements:
 # - bash 4
 
-source $(dirname ${BASH_SOURCE[0]})/../parser/parse.sh
+source "$(dirname "${BASH_SOURCE[0]}")"/../parser/parse.sh
 
 function andaris_version_compare() {
     VERSION_A=$1;
@@ -17,14 +17,14 @@ function andaris_version_compare() {
     RESULT_SAME='0';
     RESULT_EQUAL='0';
 
-    A_MAJOR=$(andaris_version_parse $1 MAJOR 2>&1);
+    A_MAJOR=$(andaris_version_parse "$VERSION_A" MAJOR 2>&1);
     if [ $? -ne 0 ]; then
         (>&2 echo 'Invalid version A!');
 
         return 65;
     fi;
 
-    B_MAJOR=$(andaris_version_parse $2 MAJOR 2>&1);
+    B_MAJOR=$(andaris_version_parse "$VERSION_B" MAJOR 2>&1);
     if [ $? -ne 0 ]; then
         (>&2 echo 'Invalid version B!');
 
@@ -37,40 +37,40 @@ function andaris_version_compare() {
         return 0;
     fi;
 
-    A_MINOR=$(andaris_version_parse $1 MINOR 2>&1);
-    A_PATCH=$(andaris_version_parse $1 PATCH 2>&1);
-    A_EXTRA=$(andaris_version_parse $1 EXTRA 2>&1);
+    A_MINOR=$(andaris_version_parse "$VERSION_A" MINOR 2>&1);
+    A_PATCH=$(andaris_version_parse "$VERSION_A" PATCH 2>&1);
+    A_EXTRA=$(andaris_version_parse "$VERSION_A" EXTRA 2>&1);
 
-    B_MINOR=$(andaris_version_parse $2 MINOR 2>&1);
-    B_PATCH=$(andaris_version_parse $2 PATCH 2>&1);
-    B_EXTRA=$(andaris_version_parse $2 EXTRA 2>&1);
+    B_MINOR=$(andaris_version_parse "$VERSION_B" MINOR 2>&1);
+    B_PATCH=$(andaris_version_parse "$VERSION_B" PATCH 2>&1);
+    B_EXTRA=$(andaris_version_parse "$VERSION_B" EXTRA 2>&1);
 
     # Compare major, minor and patch versions
-    if [ $A_MAJOR -gt $B_MAJOR ]; then
+    if [ "$A_MAJOR" -gt "$B_MAJOR" ]; then
         echo "$RESULT_A_HIGHER";
 
         return 0;
-    elif [ $B_MAJOR -gt $A_MAJOR ]; then
+    elif [ "$B_MAJOR" -gt "$A_MAJOR" ]; then
         echo "$RESULT_B_HIGHER";
 
         return 0;
     fi;
 
-    if [ $A_MINOR -gt $B_MINOR ]; then
+    if [ "$A_MINOR" -gt "$B_MINOR" ]; then
         echo "$RESULT_A_HIGHER";
 
         return 0;
-    elif [ $B_MINOR -gt $A_MINOR ]; then
+    elif [ "$B_MINOR" -gt "$A_MINOR" ]; then
         echo "$RESULT_B_HIGHER";
 
         return 0;
     fi;
 
-    if [ $A_PATCH -gt $B_PATCH ]; then
+    if [ "$A_PATCH" -gt "$B_PATCH" ]; then
         echo "$RESULT_A_HIGHER";
 
         return 0;
-    elif [ $B_PATCH -gt $A_PATCH ]; then
+    elif [ "$B_PATCH" -gt "$A_PATCH" ]; then
         echo "$RESULT_B_HIGHER";
 
         return 0;

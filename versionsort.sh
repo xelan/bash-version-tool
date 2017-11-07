@@ -5,7 +5,7 @@
 # - bash 4
 # - cat
 
-source $(dirname ${BASH_SOURCE[0]})/sorter/sort.sh
+source "$(dirname "${BASH_SOURCE[0]}")"/sorter/sort.sh
 
 if [ -z "$1" ]; then
 cat <<EOT

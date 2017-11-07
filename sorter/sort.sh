@@ -5,8 +5,8 @@
 # Requirements:
 # - bash 4
 
-source $(dirname ${BASH_SOURCE[0]})/../comparator/compare.sh
-source $(dirname ${BASH_SOURCE[0]})/../parser/parse.sh
+source "$(dirname "${BASH_SOURCE[0]}")"/../comparator/compare.sh
+source "$(dirname "${BASH_SOURCE[0]}")"/../parser/parse.sh
 
 function andaris_version_sort() {
     VERSIONS_RAW="$1";
@@ -18,12 +18,10 @@ function andaris_version_sort() {
         return 65;
     fi;
 
-    TEMP='';
-
     VERSIONS=();
     I=0;
-    for VERSION in $(echo -e $VERSIONS_RAW); do
-        andaris_version_parse $VERSION ALL > /dev/null 2>&1
+    for VERSION in $(echo -e "$VERSIONS_RAW"); do
+        andaris_version_parse "$VERSION" ALL > /dev/null 2>&1
         if [ $? -eq 65 ]; then
             continue;
         fi;
@@ -41,7 +39,7 @@ function andaris_version_sort() {
         J=$((I-1));
 
         while [ $J -ge 0 ] && [ ! -z "$X" ]; do
-            COMPARE_RESULT=$(andaris_version_compare ${VERSIONS[$J]} $X 2>&1);
+            COMPARE_RESULT=$(andaris_version_compare "${VERSIONS[$J]}" "$X" 2>&1);
             if [ "$COMPARE_RESULT" == "A" ]; then
                 VERSIONS[$J+1]=${VERSIONS[$J]};
                 ((J--));
@@ -60,7 +58,7 @@ function andaris_version_sort() {
     fi;
 
     # Descending order.
-    for (( I=$LENGTH-1; I>=0; I-- )); do
+    for (( I=LENGTH-1; I>=0; I-- )); do
         echo "${VERSIONS[$I]}"
     done;
 
