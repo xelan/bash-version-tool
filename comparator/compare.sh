@@ -89,7 +89,7 @@ function andaris_version_compare() {
     fi;
 
     # EXTRA version is a string, compare lexically in ASCII sort order
-    # TODO analyze in more detail according to SemVer §11
+    # TODO analyze in more detail according to SemVer article 11
     if [[ "$A_EXTRA" > "$B_EXTRA" ]]; then
         echo "$RESULT_A_HIGHER";
 
