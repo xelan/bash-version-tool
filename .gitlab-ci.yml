@@ -1,11 +1,18 @@
 stages:
   - test
 
-test:
+.test_template:
   stage: test
-  image: $CI_REGISTRY/docker/alpine39:latest
   script:
     - apk add bats
     - bash tests/run.sh
   tags:
     - shared
+
+test_bash4:
+  extends: .test_template
+  image: $CI_REGISTRY/docker/alpine39:latest
+
+test_bash5:
+  extends: .test_template
+  image: $CI_REGISTRY/docker/alpine312:latest
