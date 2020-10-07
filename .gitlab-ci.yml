@@ -3,7 +3,7 @@ stages:
 
 test:
   stage: test
-  image: $CI_REGISTRY/docker/alpine37:latest
+  image: $CI_REGISTRY/docker/alpine39:latest
   script:
     - apk add bats
     - bash tests/run.sh
